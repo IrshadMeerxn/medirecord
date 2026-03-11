@@ -21,14 +21,10 @@ const supabase = createClient(
 );
 
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'https://medirecord-wheat.vercel.app',
-    'https://medirecord-git-main-irshadmeerxns-projects.vercel.app',
-    'https://medirecord-1hji7m3s-irshadmeerxns-projects.vercel.app'
-  ],
-  credentials: true
+  origin: true, // Allow all origins in production
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
