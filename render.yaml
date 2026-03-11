@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: medirecord-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd src/backend && npm install
+    startCommand: cd src/backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        value: https://kjzvnzlsmlvpicsafptn.supabase.co
+      - key: SUPABASE_ANON_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtqenZuemxzbWx2cGljc2FmcHRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMTYxODgsImV4cCI6MjA4ODc5MjE4OH0.TpnXDu5YQvFhC2glZFV29eS5zTfNZeAv4-BimGm1wEE

@@ -7,12 +7,15 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-// Railway provides PORT automatically, don't override it
+// Use PORT from environment or default to 3001
 const PORT = process.env.PORT || 3001;
 
-console.log('Starting server...');
-console.log('PORT from environment:', process.env.PORT);
-console.log('Using PORT:', PORT);
+console.log('='.repeat(50));
+console.log('Starting MediRecord Backend Server');
+console.log('='.repeat(50));
+console.log('PORT:', PORT);
+console.log('NODE_ENV:', process.env.NODE_ENV || 'development');
+console.log('='.repeat(50));
 
 // Supabase client
 const supabase = createClient(
