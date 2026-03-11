@@ -7,7 +7,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
+// Railway provides PORT automatically, don't override it
 const PORT = process.env.PORT || 3001;
+
+console.log('Starting server...');
+console.log('PORT from environment:', process.env.PORT);
+console.log('Using PORT:', PORT);
 
 // Supabase client
 const supabase = createClient(
@@ -377,7 +382,9 @@ app.post('/api/doctors', async (req, res) => {
   }
 });
 
-app.listen(PORT, async () => {
+app.listen(PORT, '0.0.0.0', async () => {
   await initializeAdmin();
   console.log(`Server running on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Supabase URL: ${process.env.SUPABASE_URL ? 'configured' : 'missing'}`);
 });
