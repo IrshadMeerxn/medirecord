@@ -15,7 +15,16 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY || 'your-anon-key'
 );
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://medirecord-wheat.vercel.app',
+    'https://medirecord-git-main-irshadmeerxns-projects.vercel.app',
+    'https://medirecord-1hji7m3s-irshadmeerxns-projects.vercel.app'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Custom JSON parser to handle BigInt
