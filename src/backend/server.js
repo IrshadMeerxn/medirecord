@@ -47,6 +47,15 @@ app.use((req, res, next) => {
   next();
 });
 
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'MediRecord API is running' });
+});
+
+app.get('/health', (req, res) => {
+  res.json({ status: 'healthy', timestamp: new Date().toISOString() });
+});
+
 // Initialize default admin
 async function initializeAdmin() {
   try {
@@ -379,8 +388,22 @@ app.post('/api/doctors', async (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', async () => {
-  await initializeAdmin();
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`Supabase URL: ${process.env.SUPABASE_URL ? 'configured' : 'missing'}`);
+  try {
+    await initializeAdmin();
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`Supabase URL: ${process.env.SUPABASE_URL ? 'configured' : 'missing'}`);
+  } catch (error) {
+    console.error('Failed to initialize server:', error);
+    process.exit(1);
+  }
+});
+
+// Handle uncaught errors
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
